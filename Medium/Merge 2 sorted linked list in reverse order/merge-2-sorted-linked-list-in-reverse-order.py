@@ -9,25 +9,30 @@ class Node:
 
 class Solution:
     def mergeResult(self, h1, h2):
-        #return head of merged list
-        if h1 == None and h2 == None:
-            return None
-        t1 = h1 
-        t2 = h2
-        l1 = []
-        while t1!=None:
-            l1.append(t1.data)
-            t1 = t1.next
-        while t2!=None:
-            l1.append(t2.data)
-            t2 = t2.next
-        l1 = sorted(l1, reverse = True)
-        h = Node(l1[0])
-        t = h
-        for i in range(1, len(l1)):
-            t.next = Node(l1[i])
-            t = t.next
-        return h
+        result=None
+        while h1 and h2:
+            if h1.data<=h2.data:
+                temp=h1.next
+                h1.next=result
+                result=h1
+                h1=temp
+            else:
+                temp=h2.next
+                h2.next=result
+                result=h2
+                h2=temp
+        while h1:
+            temp=h1.next
+            h1.next=result
+            result=h1
+            h1=temp
+        while h2:
+            temp=h2.next
+            h2.next=result
+            result=h2
+            h2=temp
+        return result
+            
 
 
 #{ 
