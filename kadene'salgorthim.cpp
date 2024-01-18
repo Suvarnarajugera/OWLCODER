@@ -1,3 +1,4 @@
+/* it is better to swap negative numbers with 0 while computing max_sum of a contigious subarray*/
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
