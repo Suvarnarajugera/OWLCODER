@@ -1,20 +1,21 @@
 #User function Template for python3
 
 class Solution:
-    def wordBreak(self, n, s, d):
-        def solve(idx, dp):
-            if idx==len(s):
-                return True
-            if dp[idx] == True:
-                return dp[idx]
-            for i in range(idx+1, len(s)+1):
-                if s[idx:i] in d and solve(i, dp):
+    def solve(self,idx, dp,d):
+        if idx==len(s):
+            return True
+        if dp[idx]==True:
+            return dp[idx]
+        for i in range(idx+1, len(s)+1):
+            if s[idx:i] in d:
+                if self.solve(i, dp,d):
                     dp[idx] = True
                     return True
-            dp[idx] = False
-            return dp[idx]
+        dp[idx] = False
+        return dp[idx]
+    def wordBreak(self, n, s, d):
         dp = [False]*(len(s)+1)
-        return solve(0,dp)
+        return self.solve(0,dp,d)
     
 
 
