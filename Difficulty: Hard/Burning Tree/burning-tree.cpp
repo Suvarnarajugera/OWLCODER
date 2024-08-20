@@ -97,22 +97,23 @@ struct Node {
 class Solution {
   public:
     unordered_map<int,vector<int>>adj;
-    void createGraph(Node* root, int parent){
-        if(!root)
+    void Func(Node* root,int node){
+        if(!root){
             return;
-        int currData = root->data;
-        if(parent != -1){
-            adj[parent].push_back(currData);
-            adj[currData].push_back(parent);
         }
-        createGraph(root->left, currData);
-        createGraph(root->right, currData);
+        int curr = root->data;
+        if(node != -1){
+            adj[node].push_back(curr);
+            adj[curr].push_back(node);
+        }
+        Func(root->left,curr);
+        Func(root->right,curr);
     }
-    int minTime(Node* root, int target) {
+    int minTime(Node* root, int target){
         // Your code goes here
-        createGraph(root,-1);
+        Func(root,-1);
         queue<int>q;
-        unordered_map<int, bool>vis;
+        unordered_map<int,bool>vis;
         q.push(target);
         vis[target] = true;
         int t = 0;
@@ -121,15 +122,17 @@ class Solution {
             while(n--){
                 int node = q.front();
                 q.pop();
-                for(int i : adj[node])
-                    if(!vis[i]){
-                        q.push(i);
-                        vis[i] = true;
-                    }
+                for(auto it : adj[node]){
+                    if(vis[it] != true){
+                        q.push(it);
+                        vis[it] = true;
+                    }   
+                }
             }
             t++;
         }
-        return t - 1;
+        return t-1;
+        
     }
 };
 
